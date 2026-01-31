@@ -11,5 +11,19 @@ public class Packet {
         data = splitFrame[2];
     }
 
+    public String getDestinationAddress() {
+        return destinationAddress;
+    }
 
+    public String getSourceAddress() {
+        return sourceAddress;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public String createFrameString() {
+        return destinationAddress + ":" + sourceAddress + ":" + data;
+}
 }
