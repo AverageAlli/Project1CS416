@@ -29,6 +29,7 @@ public class Switch {
             else {
                 Port incomingPort = neighbors.get(incomingMac);
                 switchTable.put(macAddress, incomingPort.getUdpPort());
+                printSwitchTable(switchTable);
 
             }
         }
