@@ -21,16 +21,23 @@ public class Switch {
 
         while(true) {
             socket.receive(incoming);
+            String frame = new String(incoming.getData(), 0, incoming.getLength());
+            Packet packet;
+            try {
+                packet = new Packet(frame);
+            } catch (Exception e) {
+                continue;
+            }
+            String srcMac = packet.getSourceAddress();
+            String dstMac = packet.getDestinationAddress();
+
             InetAddress incomingIp = incoming.getAddress();
             String incomingMac = getMacFromIp(neighbors, incomingIp);
-            if (switchTable.containsKey(incomingMac)) {
+            Port incomingPort = neighbors.get(incomingMac);
 
-            }
-            else {
-                Port incomingPort = neighbors.get(incomingMac);
-                switchTable.put(macAddress, incomingPort.getUdpPort());
+            if (srcMac != null && incomingPort != null && !switchTable.containsKey(srcMac)) {
+                switchTable.put(srcMac, incomingPort.getUdpPort());
                 printSwitchTable(switchTable);
-
             }
         }
     }
